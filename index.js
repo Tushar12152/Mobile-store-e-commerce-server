@@ -29,8 +29,6 @@ async function run() {
 
 
 
-
-
 app.post('/users', async(req,res)=>{
     const user=req.body;
     const result= await UserCollection.insertOne(user)
@@ -38,7 +36,10 @@ app.post('/users', async(req,res)=>{
 })
 
 
-
+app.get('/users',async(req,res)=>{
+  const result=await UserCollection.find().toArray()
+  res.send(result)
+})
 
 
 
