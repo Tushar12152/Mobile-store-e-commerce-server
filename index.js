@@ -69,12 +69,45 @@ app.delete('/products/:id',async(req,res)=>{
      res.send(result)
 })
 
+
 app.get('/products/:id',async (req,res)=>{
      const id=req.params.id;
      const query={_id:new ObjectId(id)}
      const result=await productcollection.findOne(query)
      res.send(result)
 })
+
+
+app.patch('/products/:id',async(req,res)=>{
+  const id=req.params.id;
+  console.log(id);
+  const filter={_id:new ObjectId(id)}
+  const options = { upsert: true };
+  const product=req.body;
+  console.log(product);
+
+  const updatedDoc={
+      $set:{
+        Name:product. Name,
+       Storage:product. Storage,
+       Ram:product.Ram,
+       price:product.price,
+       Bettery:product.Bettery,
+       Display:product.Display,
+       Camara:product.Camara,
+       Status:product.Status,
+       image:product.image,
+       Category:product.Category,
+       imageUrl:product.imageUrl,
+      }
+  }
+
+
+  const result=await productcollection.updateOne(filter,updatedDoc,options)
+  res.send(result)
+    
+})
+
 
 
 
